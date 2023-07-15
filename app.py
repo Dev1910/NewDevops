@@ -1,15 +1,16 @@
 from flask import Flask
+from flask_restful import Api, Resource
 
 app = Flask(__name__)
+api = Api(app)
 
-# Global variable to store the visit counter
-visit_count = 0
+# Define a resource for your API endpoint
+class HelloWorld(Resource):
+    def get(self):
+        return {'message': 'Hello, World!'}
 
-@app.route('/')
-def hello_world():
-    global visit_count
-    visit_count += 1
-    return f'Hello, World! You are visitor number {visit_count}'
+# Add the resource to the API with a specific route
+api.add_resource(HelloWorld, '/hello')
 
 if __name__ == '__main__':
     app.run()
